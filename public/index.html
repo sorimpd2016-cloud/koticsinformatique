@@ -53,13 +53,48 @@
 
   /* Hero */
   .hero{
+    position:relative;overflow:hidden;
     padding:70px 0 60px;
     background:
       radial-gradient(600px 300px at 85% -10%, rgba(37,211,102,.15), transparent),
       radial-gradient(500px 260px at 10% 0%, rgba(79,140,255,.15), transparent);
     border-bottom:1px solid var(--border);
   }
-  .hero-inner{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;}
+
+  /* Scrolling computer background */
+  .hero-bg{
+    position:absolute;inset:-15% -10%;z-index:0;
+    display:flex;flex-direction:column;gap:16px;
+    transform:rotate(-6deg) scale(1.3);
+    pointer-events:none;
+  }
+  .hero-bg::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg, var(--bg) 0%, rgba(11,14,20,.55) 30%, rgba(11,14,20,.55) 70%, var(--bg) 100%);
+  }
+  .scroll-track{display:flex;gap:16px;width:max-content;animation:scrollX 42s linear infinite;}
+  .scroll-track.track-2{animation-direction:reverse;animation-duration:58s;}
+  .scroll-track img, .scroll-track .icon-tile{
+    width:220px;height:150px;flex-shrink:0;border-radius:14px;
+    box-shadow:0 10px 30px rgba(0,0,0,.4);
+  }
+  .scroll-track img{
+    object-fit:cover;border:1px solid rgba(255,255,255,.08);
+    filter:grayscale(.15) brightness(.55) saturate(1.15);
+  }
+  .icon-tile{
+    background:var(--card);border:1px solid var(--border);
+    display:flex;align-items:center;justify-content:center;font-size:3.2rem;
+  }
+  @keyframes scrollX{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+  @media (prefers-reduced-motion: reduce){
+    .scroll-track{animation:none;}
+  }
+  @media (max-width:640px){
+    .scroll-track img, .scroll-track .icon-tile{width:150px;height:104px;font-size:2.2rem;}
+  }
+
+  .hero-inner{position:relative;z-index:1;display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;}
   .eyebrow{
     display:inline-flex;align-items:center;gap:8px;
     background:var(--card);border:1px solid var(--border);
@@ -292,6 +327,16 @@
 </header>
 
 <section class="hero">
+  <div class="hero-bg" aria-hidden="true">
+    <div class="scroll-track track-1" id="scrollTrack1">
+      <div class="icon-tile">💻</div><div class="icon-tile">🖥️</div><div class="icon-tile">⌨️</div><div class="icon-tile">🖱️</div><div class="icon-tile">🎮</div><div class="icon-tile">📀</div><div class="icon-tile">🔌</div><div class="icon-tile">🖨️</div>
+      <div class="icon-tile">💻</div><div class="icon-tile">🖥️</div><div class="icon-tile">⌨️</div><div class="icon-tile">🖱️</div><div class="icon-tile">🎮</div><div class="icon-tile">📀</div><div class="icon-tile">🔌</div><div class="icon-tile">🖨️</div>
+    </div>
+    <div class="scroll-track track-2" id="scrollTrack2">
+      <div class="icon-tile">🖥️</div><div class="icon-tile">💻</div><div class="icon-tile">🔋</div><div class="icon-tile">📷</div><div class="icon-tile">🎧</div><div class="icon-tile">🧰</div><div class="icon-tile">💾</div><div class="icon-tile">🛠️</div>
+      <div class="icon-tile">🖥️</div><div class="icon-tile">💻</div><div class="icon-tile">🔋</div><div class="icon-tile">📷</div><div class="icon-tile">🎧</div><div class="icon-tile">🧰</div><div class="icon-tile">💾</div><div class="icon-tile">🛠️</div>
+    </div>
+  </div>
   <div class="container hero-inner">
     <div>
       <div class="eyebrow"><span class="dot"></span> Livraison partout au Sénégal</div>
@@ -527,6 +572,20 @@
     });
   });
 
+  function buildHeroBg(){
+    const track1 = document.getElementById('scrollTrack1');
+    const track2 = document.getElementById('scrollTrack2');
+    if (!track1 || !track2) return;
+    const photos = products.flatMap(p => p.photos || []).filter(Boolean);
+    if (!photos.length) return; // keep default icon tiles
+    const half = Math.ceil(photos.length / 2) || 1;
+    const row1 = photos.slice(0, half);
+    const row2 = photos.slice(half).length ? photos.slice(half) : photos;
+    const toImgs = (arr) => arr.concat(arr).map(src => `<img src="${src}" alt="" loading="lazy">`).join('');
+    track1.innerHTML = toImgs(row1);
+    track2.innerHTML = toImgs(row2);
+  }
+
   async function loadData(){
     try {
       const [configRes, productsRes] = await Promise.all([
@@ -544,6 +603,7 @@
         products = [];
       }
       render(products);
+      buildHeroBg();
     } catch (e) {
       applyWhatsappLinks();
       grid.innerHTML = '<div class="empty-state">Impossible de charger le catalogue pour le moment.</div>';
