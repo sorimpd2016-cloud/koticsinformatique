@@ -1,0 +1,227 @@
+[
+  {
+    "id": "9095b2733f",
+    "name": "HP EliteBook 850 G6",
+    "cat": "laptop",
+    "catLabel": "Portable",
+    "price": "185 000 FCFA",
+    "priceFixed": true,
+    "specs": [
+      "⚙️ Processeur Intel Core i5-8565U (Quad-Core 1.8 GHz / 4.6 GHz Turbo – Cache 8 Mo)",
+      "🛡️ Ram 8 Go DDR4 (extensible à 32 Go)",
+      "📀 Disque Dur SSD 256 Go (Extensible à 512 Go)",
+      "💻 Écran Full HD 15.6 pouces",
+      "🔋 Excellente autonomie"
+    ],
+    "photos": [
+      "/uploads/products/9095b2733f/1.jpg",
+      "/uploads/products/9095b2733f/2.jpg",
+      "/uploads/products/9095b2733f/3.jpg"
+    ],
+    "stock": "En stock",
+    "low": false,
+    "createdAt": "2026-07-31T00:00:00.000Z"
+  },
+  {
+    "id": "af62c96b42",
+    "name": "HP EliteBook 840 G5",
+    "cat": "laptop",
+    "catLabel": "Portable",
+    "price": "175 000 FCFA",
+    "priceFixed": true,
+    "specs": [
+      "⚙️ Processeur Intel Core i5-8ᵉ génération (Quad-Core, jusqu'à 3.9 GHz Turbo)",
+      "🛡️ Ram 8 Go DDR4 (extensible à 32 Go)",
+      "📀 Disque Dur SSD 256 Go (Extensible à 512 Go)",
+      "💻 Écran Full HD 14 pouces",
+      "🔋 Excellente autonomie"
+    ],
+    "photos": [
+      "/uploads/products/af62c96b42/1.jpg",
+      "/uploads/products/af62c96b42/2.jpg",
+      "/uploads/products/af62c96b42/3.jpg"
+    ],
+    "stock": "En stock",
+    "low": false,
+    "createdAt": "2026-07-31T00:00:00.000Z"
+  },
+  {
+    "id": "04aeac8844",
+    "name": "Dell Latitude 5480",
+    "cat": "laptop",
+    "catLabel": "Portable",
+    "price": "155 000 FCFA",
+    "priceFixed": true,
+    "specs": [
+      "⚙️ Processeur Intel Core i5-7ᵉ génération (Quad-Core)",
+      "🛡️ Ram 8 Go DDR4 (extensible à 16 Go)",
+      "📀 Disque Dur HDD 500 Go",
+      "💻 Écran HD 14 pouces",
+      "🔋 Bonne autonomie"
+    ],
+    "photos": [
+      "/uploads/products/04aeac8844/1.jpg",
+      "/uploads/products/04aeac8844/2.jpg",
+      "/uploads/products/04aeac8844/3.jpg"
+    ],
+    "stock": "En stock",
+    "low": false,
+    "createdAt": "2026-07-31T00:00:00.000Z"
+  },
+  {
+    "id": "5d99593a2c",
+    "name": "Lenovo ThinkPad T480",
+    "cat": "laptop",
+    "catLabel": "Portable",
+    "price": "225 000 FCFA",
+    "priceFixed": true,
+    "specs": [
+      "⚙️ Processeur Intel Core i7-8ᵉ génération (Quad-Core Turbo)",
+      "🛡️ Ram 16 Go DDR4 (extensible à 32 Go)",
+      "📀 Disque Dur SSD 512 Go",
+      "💻 Écran Full HD 14 pouces",
+      "🔋 Excellente autonomie"
+    ],
+    "photos": [
+      "/uploads/products/5d99593a2c/1.jpg",
+      "/uploads/products/5d99593a2c/2.jpg",
+      "/uploads/products/5d99593a2c/3.jpg"
+    ],
+    "stock": "Stock limité",
+    "low": true,
+    "createdAt": "2026-07-31T00:00:00.000Z"
+  },
+  {
+    "id": "686b2ccf3a",
+    "name": "PC Bureau HP ProDesk",
+    "cat": "desktop",
+    "catLabel": "Bureau",
+    "price": "165 000 FCFA",
+    "priceFixed": true,
+    "specs": [
+      "⚙️ Processeur Intel Core i5",
+      "🛡️ Ram 8 Go DDR4",
+      "📀 Disque Dur HDD 500 Go",
+      "🖥️ Écran 19 pouces inclus",
+      "🖱️ Clavier + souris inclus"
+    ],
+    "photos": [
+      "/uploads/products/686b2ccf3a/1.jpg",
+      "/uploads/products/686b2ccf3a/2.jpg",
+      "/uploads/products/686b2ccf3a/3.jpg"
+    ],
+    "stock": "En stock",
+    "low": false,
+    "createdAt": "2026-07-31T00:00:00.000Z"
+  },
+  {
+    "id": "b54a088526",
+    "name": "PC Gamer RGB Custom",
+    "cat": "desktop",
+    "catLabel": "Bureau",
+    "price": "395 000 FCFA",
+    "priceFixed": true,
+    "specs": [
+      "⚙️ Processeur AMD Ryzen 5",
+      "🛡️ Ram 16 Go DDR4",
+      "🎮 Carte graphique GTX 1650",
+      "📀 Disque Dur SSD 512 Go",
+      "💡 Boîtier RGB personnalisable"
+    ],
+    "photos": [
+      "/uploads/products/b54a088526/1.jpg",
+      "/uploads/products/b54a088526/2.jpg",
+      "/uploads/products/b54a088526/3.jpg"
+    ],
+    "stock": "En stock",
+    "low": false,
+    "createdAt": "2026-07-31T00:00:00.000Z"
+  },
+  {
+    "id": "ac370eb540",
+    "name": "MacBook Air M1",
+    "cat": "laptop",
+    "catLabel": "Portable",
+    "price": "450 000 FCFA",
+    "priceFixed": true,
+    "specs": [
+      "⚙️ Puce Apple M1 (8 cœurs)",
+      "🛡️ Ram 8 Go",
+      "📀 Stockage SSD 256 Go",
+      "💻 Écran Retina 13.3 pouces",
+      "🔋 Autonomie exceptionnelle"
+    ],
+    "photos": [
+      "/uploads/products/ac370eb540/1.jpg",
+      "/uploads/products/ac370eb540/2.jpg",
+      "/uploads/products/ac370eb540/3.jpg"
+    ],
+    "stock": "Stock limité",
+    "low": true,
+    "createdAt": "2026-07-31T00:00:00.000Z"
+  },
+  {
+    "id": "841cec592a",
+    "name": "Écran Dell 22\" Full HD",
+    "cat": "accessoire",
+    "catLabel": "Accessoire",
+    "price": "45 000 FCFA",
+    "priceFixed": true,
+    "specs": [
+      "🖥️ Résolution 1920x1080 Full HD",
+      "🔌 Ports HDMI / VGA",
+      "📐 Support réglable en hauteur",
+      "✅ Testé et garanti"
+    ],
+    "photos": [
+      "/uploads/products/841cec592a/1.jpg",
+      "/uploads/products/841cec592a/2.jpg",
+      "/uploads/products/841cec592a/3.jpg"
+    ],
+    "stock": "En stock",
+    "low": false,
+    "createdAt": "2026-07-31T00:00:00.000Z"
+  },
+  {
+    "id": "7706c1d664",
+    "name": "Sac à dos PC + souris sans fil",
+    "cat": "accessoire",
+    "catLabel": "Accessoire",
+    "price": "12 000 FCFA",
+    "priceFixed": true,
+    "specs": [
+      "🎒 Sac à dos renforcé compatible 15.6 pouces",
+      "🖱️ Souris sans fil offerte",
+      "💧 Tissu résistant à l'eau"
+    ],
+    "photos": [
+      "/uploads/products/7706c1d664/1.jpg",
+      "/uploads/products/7706c1d664/2.jpg",
+      "/uploads/products/7706c1d664/3.jpg"
+    ],
+    "stock": "En stock",
+    "low": false,
+    "createdAt": "2026-07-31T00:00:00.000Z"
+  },
+  {
+    "id": "97715dc1da",
+    "name": "Imprimante HP DeskJet",
+    "cat": "accessoire",
+    "catLabel": "Accessoire",
+    "price": "38 000 FCFA",
+    "priceFixed": true,
+    "specs": [
+      "🖨️ Impression, scan et copie",
+      "🔌 Connexion USB",
+      "✅ Cartouches incluses"
+    ],
+    "photos": [
+      "/uploads/products/97715dc1da/1.jpg",
+      "/uploads/products/97715dc1da/2.jpg",
+      "/uploads/products/97715dc1da/3.jpg"
+    ],
+    "stock": "En stock",
+    "low": false,
+    "createdAt": "2026-07-31T00:00:00.000Z"
+  }
+]

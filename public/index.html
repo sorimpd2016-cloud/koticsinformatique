@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kotic's Informatique — Ordinateurs au Sénégal</title>
+<meta name="description" content="Kotics Informatique — Vente d'ordinateurs portables et de bureau au Sénégal. Commandez directement via WhatsApp.">
+<link rel="icon" type="image/jpeg" href="images/logo.jpg">
+<style>
+  :root{
+    --bg:#0b0e14;
+    --bg-alt:#131824;
+    --card:#161c2b;
+    --border:#232b3d;
+    --text:#e9edf5;
+    --text-dim:#9aa5b8;
+    --accent:#25d366;
+    --accent-2:#009c98;
+    --brand:#009c98;
+    --danger:#ff5b5b;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.5;
+  }
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+  .container{max-width:1180px;margin:0 auto;padding:0 20px;}
+
+  /* Header */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(11,14,20,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0;}
+  .logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.15rem;letter-spacing:.3px;}
+  .logo img{height:40px;width:auto;background:#fff;padding:5px 10px;border-radius:8px;}
+  footer .logo img{height:34px;}
+  .nav-links{display:flex;gap:28px;font-size:.95rem;color:var(--text-dim);}
+  .nav-links a:hover{color:var(--text);}
+  .nav-cta{
+    background:var(--accent);color:#08130b;padding:10px 18px;border-radius:999px;
+    font-weight:700;font-size:.9rem;display:flex;align-items:center;gap:8px;
+  }
+  .nav-toggle{display:none;background:none;border:none;color:var(--text);font-size:1.6rem;cursor:pointer;}
+
+  /* Hero */
+  .hero{
+    padding:70px 0 60px;
+    background:
+      radial-gradient(600px 300px at 85% -10%, rgba(37,211,102,.15), transparent),
+      radial-gradient(500px 260px at 10% 0%, rgba(79,140,255,.15), transparent);
+    border-bottom:1px solid var(--border);
+  }
+  .hero-inner{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--card);border:1px solid var(--border);
+    padding:6px 14px;border-radius:999px;font-size:.8rem;color:var(--text-dim);margin-bottom:18px;
+  }
+  .eyebrow .dot{width:8px;height:8px;border-radius:50%;background:var(--brand);}
+  .hero h1{font-size:2.6rem;line-height:1.15;margin-bottom:16px;font-weight:800;}
+  .hero h1 span{color:var(--brand);}
+  .hero p{color:var(--text-dim);font-size:1.05rem;margin-bottom:28px;max-width:520px;}
+  .hero-actions{display:flex;gap:14px;flex-wrap:wrap;}
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;
+    padding:13px 24px;border-radius:10px;font-weight:700;font-size:.95rem;
+    border:1px solid transparent;cursor:pointer;transition:transform .15s ease, opacity .15s ease;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn-primary{background:var(--accent);color:#08130b;}
+  .btn-outline{background:transparent;border-color:var(--border);color:var(--text);}
+  .hero-stats{display:flex;gap:26px;margin-top:36px;flex-wrap:wrap;}
+  .stat b{display:block;font-size:1.5rem;color:var(--brand);}
+  .stat span{font-size:.82rem;color:var(--text-dim);}
+
+  .hero-visual{
+    background:var(--card);border:1px solid var(--border);border-radius:20px;
+    padding:26px;position:relative;overflow:hidden;
+  }
+  .hero-visual::before{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(135deg, rgba(79,140,255,.08), rgba(37,211,102,.08));
+  }
+  .hero-visual-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;position:relative;z-index:1;}
+  .mini-card{background:var(--bg-alt);border:1px solid var(--border);border-radius:12px;padding:14px;text-align:center;}
+  .mini-card .icon{font-size:1.8rem;margin-bottom:6px;}
+  .mini-card b{font-size:.85rem;display:block;}
+  .mini-card span{font-size:.72rem;color:var(--text-dim);}
+
+  /* Section headings */
+  section{padding:64px 0;}
+  .section-head{text-align:center;max-width:600px;margin:0 auto 42px;}
+  .section-head .tag{color:var(--brand);font-weight:700;font-size:.8rem;text-transform:uppercase;letter-spacing:1.5px;}
+  .section-head h2{font-size:2rem;margin:10px 0 12px;font-weight:800;}
+  .section-head p{color:var(--text-dim);font-size:.98rem;}
+
+  /* Filters */
+  .filters{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:34px;}
+  .filter-btn{
+    background:var(--card);border:1px solid var(--border);color:var(--text-dim);
+    padding:9px 18px;border-radius:999px;font-size:.85rem;cursor:pointer;font-weight:600;
+  }
+  .filter-btn.active{background:var(--accent);color:#08130b;border-color:var(--accent);}
+
+  /* Products */
+  .products-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+  .empty-state, .loading-state{
+    text-align:center;color:var(--text-dim);padding:40px 0;grid-column:1/-1;
+  }
+  .product-card{
+    background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
+    overflow:hidden;display:flex;flex-direction:column;transition:transform .15s ease, border-color .15s ease;
+    cursor:pointer;
+  }
+  .product-card:hover{transform:translateY(-4px);border-color:#2c3550;}
+  .product-thumb{
+    aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;
+    font-size:3rem;position:relative;background:var(--bg-alt);background-size:cover;background-position:center;overflow:hidden;
+  }
+  .product-thumb img{width:100%;height:100%;object-fit:cover;}
+  .product-thumb .badge{
+    position:absolute;top:12px;left:12px;background:rgba(0,0,0,.5);
+    color:#fff;font-size:.7rem;padding:4px 10px;border-radius:999px;font-weight:700;z-index:2;
+  }
+  .product-thumb .badge.stock-low{background:rgba(255,91,91,.25);color:#ffb3b3;}
+  .product-thumb .badge-fixed{
+    position:absolute;top:12px;right:12px;background:var(--brand);
+    color:#fff;font-size:.68rem;padding:4px 10px;border-radius:999px;font-weight:700;z-index:2;
+  }
+  .product-thumb .photo-count{
+    position:absolute;bottom:10px;right:10px;background:rgba(0,0,0,.6);
+    color:#fff;font-size:.7rem;padding:3px 9px;border-radius:999px;font-weight:600;z-index:2;
+    display:flex;align-items:center;gap:4px;
+  }
+  .product-body{padding:18px 18px 20px;display:flex;flex-direction:column;gap:8px;flex:1;}
+  .product-cat{font-size:.72rem;color:var(--accent-2);text-transform:uppercase;font-weight:700;letter-spacing:.5px;}
+  .product-title{font-size:1.05rem;font-weight:700;}
+  .product-specs{list-style:none;font-size:.8rem;color:var(--text-dim);line-height:1.65;display:flex;flex-direction:column;gap:2px;}
+  .product-specs li{display:flex;gap:6px;align-items:flex-start;}
+  .product-price{margin-top:auto;display:flex;align-items:center;justify-content:space-between;padding-top:10px;}
+  .price{font-size:1.15rem;font-weight:800;color:var(--text);}
+  .price small{font-size:.7rem;color:var(--text-dim);font-weight:400;display:block;}
+  .order-btn{
+    background:var(--accent);color:#08130b;border:none;padding:10px 16px;border-radius:8px;
+    font-weight:700;font-size:.82rem;cursor:pointer;display:flex;align-items:center;gap:6px;
+  }
+  .order-btn:hover{opacity:.9;}
+
+  /* Product modal */
+  .modal-overlay{
+    display:none;position:fixed;inset:0;z-index:100;
+    background:rgba(6,8,12,.75);backdrop-filter:blur(4px);
+    align-items:center;justify-content:center;padding:20px;
+  }
+  .modal-overlay.open{display:flex;}
+  .modal-box{
+    background:var(--card);border:1px solid var(--border);border-radius:18px;
+    max-width:940px;width:100%;max-height:90vh;overflow-y:auto;
+    display:grid;grid-template-columns:1fr 1fr;position:relative;
+  }
+  .modal-close{
+    position:absolute;top:16px;right:16px;background:rgba(0,0,0,.5);color:#fff;
+    border:none;width:36px;height:36px;border-radius:50%;font-size:1.1rem;cursor:pointer;z-index:5;
+  }
+  .modal-gallery{position:relative;background:var(--bg-alt);}
+  .modal-main-img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;}
+  .modal-nav{
+    position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.5);color:#fff;
+    border:none;width:38px;height:38px;border-radius:50%;font-size:1.1rem;cursor:pointer;
+  }
+  .modal-nav.prev{left:12px;}
+  .modal-nav.next{right:12px;}
+  .modal-thumbs{display:flex;gap:8px;padding:12px;overflow-x:auto;}
+  .modal-thumbs img{
+    width:64px;height:48px;object-fit:cover;border-radius:8px;cursor:pointer;
+    border:2px solid transparent;opacity:.65;flex-shrink:0;
+  }
+  .modal-thumbs img.active{border-color:var(--brand);opacity:1;}
+  .modal-info{padding:28px;display:flex;flex-direction:column;gap:14px;}
+  .modal-cat{font-size:.75rem;color:var(--accent-2);text-transform:uppercase;font-weight:700;letter-spacing:.5px;}
+  .modal-title{font-size:1.4rem;font-weight:800;}
+  .modal-price-row{display:flex;align-items:center;gap:10px;}
+  .modal-price{font-size:1.6rem;font-weight:900;color:var(--brand);}
+  .modal-price-tag{
+    background:rgba(0,156,152,.15);color:var(--brand);font-size:.72rem;font-weight:700;
+    padding:4px 10px;border-radius:999px;
+  }
+  .modal-specs{list-style:none;display:flex;flex-direction:column;gap:9px;font-size:.92rem;color:var(--text-dim);}
+  .modal-specs li{display:flex;gap:8px;align-items:flex-start;}
+  .modal-order-btn{
+    background:var(--accent);color:#08130b;border:none;padding:14px 20px;border-radius:10px;
+    font-weight:700;font-size:.95rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;
+    margin-top:8px;
+  }
+  .modal-order-btn:hover{opacity:.9;}
+  @media (max-width:720px){
+    .modal-box{grid-template-columns:1fr;}
+  }
+
+  /* How it works */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+  .step-card{background:var(--bg-alt);border:1px solid var(--border);border-radius:var(--radius);padding:26px;}
+  .step-num{
+    width:36px;height:36px;border-radius:10px;background:var(--brand);color:#08130b;
+    display:flex;align-items:center;justify-content:center;font-weight:800;margin-bottom:16px;
+  }
+  .step-card h3{font-size:1.05rem;margin-bottom:8px;}
+  .step-card p{color:var(--text-dim);font-size:.9rem;}
+
+  /* About / trust */
+  .about-wrap{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;}
+  .about-list{list-style:none;margin-top:20px;display:flex;flex-direction:column;gap:14px;}
+  .about-list li{display:flex;gap:12px;font-size:.92rem;color:var(--text-dim);}
+  .about-list li b{color:var(--text);}
+  .check{color:var(--brand);font-weight:900;}
+
+  /* CTA band */
+  .cta-band{
+    background:linear-gradient(135deg, rgba(37,211,102,.12), rgba(79,140,255,.12));
+    border:1px solid var(--border);border-radius:20px;
+    padding:44px;text-align:center;
+  }
+  .cta-band h2{font-size:1.7rem;margin-bottom:10px;}
+  .cta-band p{color:var(--text-dim);margin-bottom:24px;}
+
+  /* Footer */
+  footer{border-top:1px solid var(--border);padding:40px 0 24px;background:var(--bg-alt);}
+  .footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:36px;margin-bottom:30px;}
+  .footer-col h4{font-size:.9rem;margin-bottom:14px;}
+  .footer-col p, .footer-col a{color:var(--text-dim);font-size:.88rem;display:block;margin-bottom:8px;}
+  .footer-col a:hover{color:var(--brand);}
+  .social-row{display:flex;gap:12px;margin-top:8px;}
+  .social-row a{
+    width:36px;height:36px;border-radius:50%;background:var(--card);border:1px solid var(--border);
+    display:flex;align-items:center;justify-content:center;font-size:1rem;
+  }
+  .footer-bottom{
+    text-align:center;color:var(--text-dim);font-size:.8rem;border-top:1px solid var(--border);
+    padding-top:20px;display:flex;flex-direction:column;gap:8px;align-items:center;
+  }
+  .admin-link{font-size:.75rem;color:var(--text-dim);opacity:.6;}
+  .admin-link:hover{opacity:1;color:var(--brand);}
+
+  /* Floating WhatsApp button */
+  .wa-float{
+    position:fixed;bottom:22px;right:22px;z-index:60;
+    background:var(--accent);color:#08130b;width:58px;height:58px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;font-size:1.6rem;
+    box-shadow:0 8px 24px rgba(37,211,102,.4);
+  }
+
+  @media (max-width:900px){
+    .hero-inner{grid-template-columns:1fr;}
+    .products-grid{grid-template-columns:repeat(2,1fr);}
+    .about-wrap{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr;}
+    .steps{grid-template-columns:1fr;}
+  }
+  @media (max-width:640px){
+    .nav-links{display:none;}
+    .nav-toggle{display:block;}
+    .products-grid{grid-template-columns:1fr;}
+    .hero h1{font-size:2rem;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <div class="logo"><img src="images/logo-cropped.jpg" alt="Kotic's Informatique"></div>
+    <nav class="nav-links">
+      <a href="#produits">Produits</a>
+      <a href="#comment">Comment commander</a>
+      <a href="#apropos">À propos</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="nav-cta" id="navWhatsapp" href="#" target="_blank" rel="noopener">
+      💬 WhatsApp
+    </a>
+    <button class="nav-toggle">☰</button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container hero-inner">
+    <div>
+      <div class="eyebrow"><span class="dot"></span> Livraison partout au Sénégal</div>
+      <h1>Des ordinateurs fiables, <span>commandés en 1 message</span> WhatsApp.</h1>
+      <p>Kotic's Informatique vend des ordinateurs portables et de bureau, neufs et reconditionnés, testés et garantis. Parcourez le catalogue, choisissez votre modèle, et validez votre commande directement sur WhatsApp — sans paiement en ligne.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#produits">Voir le catalogue</a>
+        <a class="btn btn-outline" href="https://www.tiktok.com/@koticsinformatique" target="_blank" rel="noopener">Suivre sur TikTok</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><b>100%</b><span>Commandes via WhatsApp</span></div>
+        <div class="stat"><b>Dakar</b><span>Et livraison régions</span></div>
+        <div class="stat"><b>Garantie</b><span>Sur tous les appareils</span></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-visual-grid">
+        <div class="mini-card"><div class="icon">💻</div><b>Laptops</b><span>Pro & bureautique</span></div>
+        <div class="mini-card"><div class="icon">🖥️</div><b>Desktops</b><span>Bureau & gaming</span></div>
+        <div class="mini-card"><div class="icon">🖨️</div><b>Accessoires</b><span>Souris, sacs, écrans</span></div>
+        <div class="mini-card"><div class="icon">🔧</div><b>Occasion vérifiée</b><span>Testés avant vente</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="produits">
+  <div class="container">
+    <div class="section-head">
+      <div class="tag">Catalogue</div>
+      <h2>Nos ordinateurs disponibles</h2>
+      <p>Cliquez sur un produit pour voir toutes les photos et caractéristiques, ou sur "Commander" pour envoyer un message WhatsApp pré-rempli.</p>
+    </div>
+
+    <div class="filters">
+      <button class="filter-btn active" data-filter="all">Tous</button>
+      <button class="filter-btn" data-filter="laptop">Portables</button>
+      <button class="filter-btn" data-filter="desktop">Bureau</button>
+      <button class="filter-btn" data-filter="accessoire">Accessoires</button>
+    </div>
+
+    <div class="products-grid" id="productsGrid">
+      <div class="loading-state">Chargement du catalogue…</div>
+    </div>
+  </div>
+</section>
+
+<section id="comment" style="background:var(--bg-alt);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="container">
+    <div class="section-head">
+      <div class="tag">Processus</div>
+      <h2>Comment commander</h2>
+      <p>Pas de paiement en ligne. Tout se passe simplement, par message.</p>
+    </div>
+    <div class="steps">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <h3>Choisissez un produit</h3>
+        <p>Parcourez le catalogue et cliquez sur "Commander" sous le modèle qui vous intéresse.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <h3>Confirmez sur WhatsApp</h3>
+        <p>Un message pré-rempli s'ouvre sur WhatsApp avec le nom du produit. Envoyez-le, on vous répond rapidement.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <h3>Livraison & paiement</h3>
+        <p>On confirme la disponibilité, le prix final et les modalités de livraison/paiement directement avec vous.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="apropos">
+  <div class="container about-wrap">
+    <div>
+      <div class="tag">À propos</div>
+      <h2 style="font-size:1.9rem;margin:10px 0 14px;font-weight:800;">Pourquoi choisir Kotic's Informatique ?</h2>
+      <p style="color:var(--text-dim);">Basés au Sénégal, nous sélectionnons et testons chaque ordinateur avant de le proposer à la vente. Suivez-nous aussi sur TikTok pour découvrir les nouveautés en vidéo.</p>
+      <ul class="about-list">
+        <li><span class="check">✓</span><div><b>Appareils testés</b> — chaque ordinateur est vérifié avant la mise en vente.</div></li>
+        <li><span class="check">✓</span><div><b>Commande simple</b> — pas besoin de créer un compte ni de payer en ligne.</div></li>
+        <li><span class="check">✓</span><div><b>Réponse rapide</b> — échangez directement avec nous sur WhatsApp.</div></li>
+        <li><span class="check">✓</span><div><b>Livraison au Sénégal</b> — Dakar et régions, modalités à confirmer par message.</div></li>
+      </ul>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-visual-grid">
+        <div class="mini-card"><div class="icon">⭐</div><b>Avis clients</b><span>Bientôt disponible</span></div>
+        <div class="mini-card"><div class="icon">📦</div><b>Stock local</b><span>Dakar, Sénégal</span></div>
+        <div class="mini-card"><div class="icon">🎥</div><b>Vidéos TikTok</b><span>@koticsinformatique</span></div>
+        <div class="mini-card"><div class="icon">📞</div><b>Support direct</b><span>Réponse rapide</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="cta-band">
+      <h2>Une question sur un modèle précis ?</h2>
+      <p>Écrivez-nous directement, on vous aide à choisir l'ordinateur qu'il vous faut.</p>
+      <a class="btn btn-primary" id="ctaWhatsapp" href="#" target="_blank" rel="noopener">💬 Discuter sur WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="logo" style="margin-bottom:12px;"><img src="images/logo-cropped.jpg" alt="Kotic's Informatique"></div>
+        <p>Vente d'ordinateurs portables, de bureau et accessoires au Sénégal. Commandes validées par WhatsApp uniquement.</p>
+        <div class="social-row">
+          <a href="https://www.tiktok.com/@koticsinformatique" target="_blank" rel="noopener" title="TikTok">🎵</a>
+          <a href="#" id="footerWhatsapp" target="_blank" rel="noopener" title="WhatsApp">💬</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <a href="#produits">Catalogue</a>
+        <a href="#comment">Comment commander</a>
+        <a href="#apropos">À propos</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <p>📍 Sénégal</p>
+        <p id="footerPhone">📱 —</p>
+        <a href="https://www.tiktok.com/@koticsinformatique" target="_blank" rel="noopener">🎵 @koticsinformatique</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© <span id="year"></span> Kotic's Informatique — Tous droits réservés.</div>
+      <a class="admin-link" href="/admin">Gérer le site (admin)</a>
+    </div>
+  </div>
+</footer>
+
+<a class="wa-float" id="floatWhatsapp" href="#" target="_blank" rel="noopener" title="Discuter sur WhatsApp">💬</a>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-box">
+    <button class="modal-close" id="modalClose">✕</button>
+    <div class="modal-gallery">
+      <img class="modal-main-img" id="modalMainImg" src="" alt="">
+      <button class="modal-nav prev" id="modalPrev">‹</button>
+      <button class="modal-nav next" id="modalNext">›</button>
+      <div class="modal-thumbs" id="modalThumbs"></div>
+    </div>
+    <div class="modal-info">
+      <div class="modal-cat" id="modalCat"></div>
+      <div class="modal-title" id="modalTitle"></div>
+      <div class="modal-price-row">
+        <div class="modal-price" id="modalPrice"></div>
+        <div class="modal-price-tag" id="modalPriceTag"></div>
+      </div>
+      <ul class="modal-specs" id="modalSpecs"></ul>
+      <a class="modal-order-btn" id="modalOrderBtn" href="#" target="_blank" rel="noopener">💬 Commander via WhatsApp</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  let WHATSAPP_NUMBER = "221785314117"; // valeur par défaut, écrasée par /api/config
+  let products = [];
+
+  function whatsappOrderUrl(p){
+    const msg = encodeURIComponent(`Bonjour Kotic's Informatique, je souhaite commander : ${p.name} (${p.price}). Est-il toujours disponible ?`);
+    return `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
+  }
+
+  function applyWhatsappLinks(){
+    document.getElementById('navWhatsapp').href =
+      `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Bonjour Kotic's Informatique, je souhaite des infos sur vos ordinateurs.")}`;
+    document.getElementById('ctaWhatsapp').href =
+      `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Bonjour Kotic's Informatique, j'ai une question sur un ordinateur.")}`;
+    document.getElementById('footerWhatsapp').href = `https://wa.me/${WHATSAPP_NUMBER}`;
+    document.getElementById('floatWhatsapp').href =
+      `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Bonjour Kotic's Informatique!")}`;
+    const digits = WHATSAPP_NUMBER;
+    document.getElementById('footerPhone').textContent =
+      `📱 +${digits.slice(0,3)} ${digits.slice(3,5)} ${digits.slice(5,7)} ${digits.slice(7,9)} ${digits.slice(9)}`;
+  }
+
+  const grid = document.getElementById('productsGrid');
+
+  function render(list){
+    if (!list.length) {
+      grid.innerHTML = '<div class="empty-state">Aucun produit disponible pour le moment. Revenez bientôt !</div>';
+      return;
+    }
+    grid.innerHTML = "";
+    list.forEach((p) => {
+      const card = document.createElement('div');
+      card.className = 'product-card';
+      const firstPhoto = p.photos && p.photos.length ? p.photos[0] : '';
+      card.innerHTML = `
+        <div class="product-thumb">
+          <span class="badge ${p.low ? 'stock-low' : ''}">${p.stock}</span>
+          ${p.priceFixed ? '<span class="badge-fixed">Prix fixe</span>' : ''}
+          ${firstPhoto ? `<img src="${firstPhoto}" alt="${p.name}" loading="lazy">` : ''}
+          ${p.photos && p.photos.length ? `<span class="photo-count">📷 ${p.photos.length}</span>` : ''}
+        </div>
+        <div class="product-body">
+          <div class="product-cat">${p.catLabel}</div>
+          <div class="product-title">${p.name}</div>
+          <ul class="product-specs">
+            ${(p.specs || []).slice(0,3).map(s => `<li>${s}</li>`).join('')}
+          </ul>
+          <div class="product-price">
+            <div class="price">${p.price}<small>${p.priceFixed ? 'Prix fixe' : 'Prix indicatif'}</small></div>
+            <a class="order-btn" href="${whatsappOrderUrl(p)}" target="_blank" rel="noopener">💬 Commander</a>
+          </div>
+        </div>
+      `;
+      card.addEventListener('click', (e) => {
+        if (e.target.closest('.order-btn')) return; // let WhatsApp link work normally
+        openModal(p.id);
+      });
+      grid.appendChild(card);
+    });
+  }
+
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      render(f === 'all' ? products : products.filter(p => p.cat === f));
+    });
+  });
+
+  async function loadData(){
+    try {
+      const [configRes, productsRes] = await Promise.all([
+        fetch('/api/config'),
+        fetch('/api/products')
+      ]);
+      if (configRes.ok) {
+        const config = await configRes.json();
+        if (config.whatsappNumber) WHATSAPP_NUMBER = config.whatsappNumber;
+      }
+      applyWhatsappLinks();
+      if (productsRes.ok) {
+        products = await productsRes.json();
+      } else {
+        products = [];
+      }
+      render(products);
+    } catch (e) {
+      applyWhatsappLinks();
+      grid.innerHTML = '<div class="empty-state">Impossible de charger le catalogue pour le moment.</div>';
+    }
+  }
+  loadData();
+
+  /* ---- Product modal / photo gallery ---- */
+  const modalOverlay = document.getElementById('modalOverlay');
+  const modalMainImg = document.getElementById('modalMainImg');
+  const modalThumbs = document.getElementById('modalThumbs');
+  const modalCat = document.getElementById('modalCat');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalPrice = document.getElementById('modalPrice');
+  const modalPriceTag = document.getElementById('modalPriceTag');
+  const modalSpecs = document.getElementById('modalSpecs');
+  const modalOrderBtn = document.getElementById('modalOrderBtn');
+  const modalPrev = document.getElementById('modalPrev');
+  const modalNext = document.getElementById('modalNext');
+  const modalClose = document.getElementById('modalClose');
+
+  let activeProduct = null;
+  let activePhotoIndex = 0;
+
+  function openModal(id){
+    activeProduct = products.find(p => p.id === id);
+    if (!activeProduct) return;
+    activePhotoIndex = 0;
+    modalCat.textContent = activeProduct.catLabel;
+    modalTitle.textContent = activeProduct.name;
+    modalPrice.textContent = activeProduct.price;
+    modalPriceTag.textContent = activeProduct.priceFixed ? 'Prix fixe' : 'Prix indicatif';
+    modalSpecs.innerHTML = (activeProduct.specs || []).map(s => `<li>${s}</li>`).join('');
+    modalOrderBtn.href = whatsappOrderUrl(activeProduct);
+    renderGallery();
+    modalOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function renderGallery(){
+    const photos = (activeProduct.photos && activeProduct.photos.length) ? activeProduct.photos : [''];
+    modalMainImg.src = photos[activePhotoIndex];
+    modalMainImg.alt = activeProduct.name;
+    modalThumbs.innerHTML = photos.map((src, i) =>
+      `<img src="${src}" class="${i === activePhotoIndex ? 'active' : ''}" data-i="${i}" alt="Photo ${i+1}">`
+    ).join('');
+    modalThumbs.querySelectorAll('img').forEach(t => {
+      t.addEventListener('click', () => {
+        activePhotoIndex = parseInt(t.dataset.i, 10);
+        renderGallery();
+      });
+    });
+  }
+
+  function closeModal(){
+    modalOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  modalClose.addEventListener('click', closeModal);
+  modalOverlay.addEventListener('click', (e) => {
+    if (e.target === modalOverlay) closeModal();
+  });
+  modalPrev.addEventListener('click', () => {
+    if (!activeProduct) return;
+    activePhotoIndex = (activePhotoIndex - 1 + activeProduct.photos.length) % activeProduct.photos.length;
+    renderGallery();
+  });
+  modalNext.addEventListener('click', () => {
+    if (!activeProduct) return;
+    activePhotoIndex = (activePhotoIndex + 1) % activeProduct.photos.length;
+    renderGallery();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (!modalOverlay.classList.contains('open')) return;
+    if (e.key === 'Escape') closeModal();
+    if (e.key === 'ArrowRight') modalNext.click();
+    if (e.key === 'ArrowLeft') modalPrev.click();
+  });
+</script>
+
+</body>
+</html>

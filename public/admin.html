@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — Kotic's Informatique</title>
+<link rel="icon" type="image/jpeg" href="images/logo.jpg">
+<style>
+  :root{
+    --bg:#0b0e14;
+    --bg-alt:#131824;
+    --card:#161c2b;
+    --border:#232b3d;
+    --text:#e9edf5;
+    --text-dim:#9aa5b8;
+    --accent:#25d366;
+    --brand:#009c98;
+    --danger:#ff5b5b;
+    --radius:12px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:'Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif;
+    background:var(--bg);color:var(--text);line-height:1.5;min-height:100vh;
+  }
+  a{color:inherit;}
+  .container{max-width:1100px;margin:0 auto;padding:0 20px;}
+  input, textarea, select{
+    width:100%;background:var(--bg-alt);border:1px solid var(--border);color:var(--text);
+    padding:10px 12px;border-radius:8px;font-size:.92rem;font-family:inherit;
+  }
+  input:focus, textarea:focus, select:focus{outline:none;border-color:var(--brand);}
+  label{font-size:.82rem;color:var(--text-dim);font-weight:600;display:block;margin-bottom:6px;}
+  .field{margin-bottom:16px;}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:9px;
+    font-weight:700;font-size:.9rem;border:1px solid transparent;cursor:pointer;
+  }
+  .btn-primary{background:var(--brand);color:#fff;}
+  .btn-primary:hover{opacity:.9;}
+  .btn-outline{background:transparent;border-color:var(--border);color:var(--text);}
+  .btn-outline:hover{border-color:var(--brand);}
+  .btn-danger{background:rgba(255,91,91,.12);color:#ff8a8a;border-color:rgba(255,91,91,.3);}
+  .btn-danger:hover{background:rgba(255,91,91,.2);}
+  .btn-sm{padding:7px 12px;font-size:.8rem;}
+
+  /* Login */
+  #loginScreen{
+    min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;
+  }
+  .login-box{
+    background:var(--card);border:1px solid var(--border);border-radius:16px;padding:36px;
+    max-width:380px;width:100%;text-align:center;
+  }
+  .login-box img{height:44px;margin:0 auto 20px;background:#fff;padding:6px 12px;border-radius:8px;}
+  .login-box h1{font-size:1.2rem;margin-bottom:6px;}
+  .login-box p{color:var(--text-dim);font-size:.85rem;margin-bottom:22px;}
+  .login-error{color:#ff8a8a;font-size:.82rem;margin-top:10px;min-height:18px;}
+
+  /* App shell */
+  #app{display:none;}
+  header{
+    border-bottom:1px solid var(--border);background:rgba(11,14,20,.9);position:sticky;top:0;z-index:10;
+  }
+  .topbar{display:flex;align-items:center;justify-content:space-between;padding:16px 0;}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:800;}
+  .brand img{height:32px;background:#fff;padding:4px 8px;border-radius:6px;}
+  main{padding:32px 0 80px;}
+  .page-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px;}
+  .page-head h2{font-size:1.4rem;}
+  .page-head p{color:var(--text-dim);font-size:.85rem;}
+
+  /* Product table/grid */
+  .admin-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px;}
+  .admin-card{
+    background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;
+    display:flex;flex-direction:column;
+  }
+  .admin-thumb{aspect-ratio:4/3;background:var(--bg-alt);position:relative;}
+  .admin-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+  .admin-thumb .no-photo{
+    width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--text-dim);font-size:.8rem;
+  }
+  .admin-badges{position:absolute;top:8px;left:8px;display:flex;gap:6px;flex-wrap:wrap;}
+  .admin-badges span{background:rgba(0,0,0,.55);color:#fff;font-size:.65rem;padding:3px 8px;border-radius:999px;font-weight:700;}
+  .admin-body{padding:14px;display:flex;flex-direction:column;gap:8px;flex:1;}
+  .admin-cat{font-size:.68rem;color:var(--brand);text-transform:uppercase;font-weight:700;}
+  .admin-title{font-weight:700;font-size:.98rem;}
+  .admin-price{font-weight:800;font-size:1rem;}
+  .admin-actions{display:flex;gap:8px;margin-top:auto;padding-top:6px;}
+  .admin-actions .btn{flex:1;justify-content:center;}
+  .empty{color:var(--text-dim);text-align:center;padding:60px 0;grid-column:1/-1;}
+
+  /* Modal form */
+  .overlay{
+    display:none;position:fixed;inset:0;background:rgba(6,8,12,.75);z-index:100;
+    align-items:flex-start;justify-content:center;padding:30px 16px;overflow-y:auto;
+  }
+  .overlay.open{display:flex;}
+  .form-box{
+    background:var(--card);border:1px solid var(--border);border-radius:16px;
+    max-width:640px;width:100%;padding:28px;margin-bottom:40px;
+  }
+  .form-box h3{margin-bottom:18px;font-size:1.15rem;}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .checkbox-row{display:flex;align-items:center;gap:8px;margin-bottom:16px;}
+  .checkbox-row input{width:auto;}
+  .checkbox-row label{margin:0;color:var(--text);font-weight:500;}
+  .photo-list{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px;}
+  .photo-item{position:relative;width:80px;height:64px;border-radius:8px;overflow:hidden;border:1px solid var(--border);}
+  .photo-item img{width:100%;height:100%;object-fit:cover;}
+  .photo-item button{
+    position:absolute;top:2px;right:2px;background:rgba(0,0,0,.6);color:#fff;border:none;
+    width:20px;height:20px;border-radius:50%;font-size:.7rem;cursor:pointer;
+  }
+  .form-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:20px;}
+  .hint{font-size:.75rem;color:var(--text-dim);margin-top:-8px;margin-bottom:16px;}
+  .toast{
+    position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
+    background:var(--card);border:1px solid var(--border);color:var(--text);
+    padding:12px 20px;border-radius:10px;font-size:.85rem;z-index:200;display:none;
+  }
+  .toast.show{display:block;}
+  .toast.error{border-color:rgba(255,91,91,.5);color:#ff8a8a;}
+</style>
+</head>
+<body>
+
+<div id="loginScreen">
+  <div class="login-box">
+    <img src="images/logo.jpg" alt="Kotic's Informatique">
+    <h1>Espace admin</h1>
+    <p>Entre le mot de passe pour gérer le catalogue.</p>
+    <form id="loginForm">
+      <div class="field" style="text-align:left;">
+        <label for="password">Mot de passe</label>
+        <input type="password" id="password" required autofocus>
+      </div>
+      <button class="btn btn-primary" type="submit" style="width:100%;justify-content:center;">Se connecter</button>
+      <div class="login-error" id="loginError"></div>
+    </form>
+  </div>
+</div>
+
+<div id="app">
+  <header>
+    <div class="container topbar">
+      <div class="brand"><img src="images/logo-cropped.jpg" alt="Logo"> Admin</div>
+      <div style="display:flex;gap:10px;">
+        <a class="btn btn-outline btn-sm" href="/" target="_blank">Voir le site</a>
+        <button class="btn btn-outline btn-sm" id="logoutBtn">Déconnexion</button>
+      </div>
+    </div>
+  </header>
+  <main>
+    <div class="container">
+      <div class="page-head">
+        <div>
+          <h2>Catalogue produits</h2>
+          <p id="countInfo">—</p>
+        </div>
+        <button class="btn btn-primary" id="addBtn">+ Ajouter un produit</button>
+      </div>
+      <div class="admin-grid" id="adminGrid"></div>
+    </div>
+  </main>
+</div>
+
+<div class="overlay" id="formOverlay">
+  <div class="form-box">
+    <h3 id="formTitle">Ajouter un produit</h3>
+    <form id="productForm">
+      <input type="hidden" id="productId">
+      <div class="field">
+        <label for="name">Nom du produit</label>
+        <input type="text" id="name" required placeholder="Ex: HP EliteBook 850 G6">
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label for="cat">Catégorie</label>
+          <select id="cat">
+            <option value="laptop">Portable</option>
+            <option value="desktop">Bureau</option>
+            <option value="accessoire">Accessoire</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="price">Prix (texte libre)</label>
+          <input type="text" id="price" required placeholder="Ex: 185 000 FCFA">
+        </div>
+      </div>
+      <div class="checkbox-row">
+        <input type="checkbox" id="priceFixed" checked>
+        <label for="priceFixed">Prix fixe (affiche le badge "Prix fixe")</label>
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label for="stock">Texte du badge stock</label>
+          <input type="text" id="stock" value="En stock">
+        </div>
+        <div class="field" style="display:flex;align-items:flex-end;">
+          <div class="checkbox-row" style="margin-bottom:10px;">
+            <input type="checkbox" id="low">
+            <label for="low">Stock limité (badge rouge)</label>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <label for="specs">Caractéristiques (une ligne par caractéristique)</label>
+        <textarea id="specs" rows="6" placeholder="⚙️ Processeur Intel Core i5-8565U
+🛡️ Ram 8 Go DDR4 (extensible à 32 Go)
+📀 Disque Dur SSD 256 Go
+💻 Écran Full HD 15.6 pouces
+🔋 Excellente autonomie"></textarea>
+      </div>
+      <div class="hint">Astuce : copie-colle le message que tu écris déjà sur WhatsApp/TikTok, une caractéristique par ligne.</div>
+
+      <div class="field">
+        <label>Photos actuelles</label>
+        <div class="photo-list" id="existingPhotos"></div>
+      </div>
+      <div class="field">
+        <label for="photos">Ajouter des photos (plusieurs possibles)</label>
+        <input type="file" id="photos" accept="image/jpeg,image/png,image/webp" multiple>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn btn-outline" id="cancelBtn">Annuler</button>
+        <button type="submit" class="btn btn-primary" id="saveBtn">Enregistrer</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const API = '/api';
+  let token = localStorage.getItem('kotics_admin_token') || '';
+  let products = [];
+  let editingId = null;
+  let existingPhotosState = []; // photos of the product currently being edited
+
+  const loginScreen = document.getElementById('loginScreen');
+  const app = document.getElementById('app');
+  const toast = document.getElementById('toast');
+
+  function showToast(msg, isError){
+    toast.textContent = msg;
+    toast.className = 'toast show' + (isError ? ' error' : '');
+    setTimeout(() => toast.classList.remove('show'), 3000);
+  }
+
+  function authHeaders(){
+    return token ? { Authorization: 'Bearer ' + token } : {};
+  }
+
+  async function checkAuth(){
+    if (!token) return showLogin();
+    try {
+      const res = await fetch(`${API}/admin/check`, { headers: authHeaders() });
+      if (res.ok) {
+        showApp();
+        loadProducts();
+      } else {
+        showLogin();
+      }
+    } catch (e) {
+      showLogin();
+    }
+  }
+
+  function showLogin(){
+    loginScreen.style.display = 'flex';
+    app.style.display = 'none';
+  }
+  function showApp(){
+    loginScreen.style.display = 'none';
+    app.style.display = 'block';
+  }
+
+  document.getElementById('loginForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const password = document.getElementById('password').value;
+    const errEl = document.getElementById('loginError');
+    errEl.textContent = '';
+    try {
+      const res = await fetch(`${API}/admin/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password })
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        errEl.textContent = data.error || 'Échec de connexion.';
+        return;
+      }
+      token = data.token;
+      localStorage.setItem('kotics_admin_token', token);
+      showApp();
+      loadProducts();
+    } catch (e) {
+      errEl.textContent = 'Erreur réseau.';
+    }
+  });
+
+  document.getElementById('logoutBtn').addEventListener('click', () => {
+    token = '';
+    localStorage.removeItem('kotics_admin_token');
+    showLogin();
+  });
+
+  async function loadProducts(){
+    const grid = document.getElementById('adminGrid');
+    grid.innerHTML = '<div class="empty">Chargement…</div>';
+    try {
+      const res = await fetch(`${API}/admin/products`, { headers: authHeaders() });
+      if (res.status === 401) { showLogin(); return; }
+      products = await res.json();
+      renderGrid();
+    } catch (e) {
+      grid.innerHTML = '<div class="empty">Erreur de chargement.</div>';
+    }
+  }
+
+  function renderGrid(){
+    const grid = document.getElementById('adminGrid');
+    document.getElementById('countInfo').textContent = `${products.length} produit${products.length > 1 ? 's' : ''}`;
+    if (!products.length) {
+      grid.innerHTML = '<div class="empty">Aucun produit. Clique sur "+ Ajouter un produit" pour commencer.</div>';
+      return;
+    }
+    grid.innerHTML = '';
+    products.forEach(p => {
+      const card = document.createElement('div');
+      card.className = 'admin-card';
+      const photo = p.photos && p.photos[0];
+      card.innerHTML = `
+        <div class="admin-thumb">
+          <div class="admin-badges">
+            <span>${p.stock}</span>
+            ${p.priceFixed ? '<span>Prix fixe</span>' : ''}
+          </div>
+          ${photo ? `<img src="${photo}" alt="${p.name}">` : '<div class="no-photo">Pas de photo</div>'}
+        </div>
+        <div class="admin-body">
+          <div class="admin-cat">${p.catLabel}</div>
+          <div class="admin-title">${p.name}</div>
+          <div class="admin-price">${p.price}</div>
+          <div class="admin-actions">
+            <button class="btn btn-outline btn-sm" data-edit="${p.id}">Modifier</button>
+            <button class="btn btn-danger btn-sm" data-delete="${p.id}">Supprimer</button>
+          </div>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+
+    grid.querySelectorAll('[data-edit]').forEach(btn => {
+      btn.addEventListener('click', () => openForm(btn.dataset.edit));
+    });
+    grid.querySelectorAll('[data-delete]').forEach(btn => {
+      btn.addEventListener('click', () => deleteProduct(btn.dataset.delete));
+    });
+  }
+
+  async function deleteProduct(id){
+    const p = products.find(x => x.id === id);
+    if (!confirm(`Supprimer "${p ? p.name : 'ce produit'}" ? Cette action est irréversible.`)) return;
+    try {
+      const res = await fetch(`${API}/admin/products/${id}`, { method: 'DELETE', headers: authHeaders() });
+      if (!res.ok) throw new Error();
+      showToast('Produit supprimé.');
+      loadProducts();
+    } catch (e) {
+      showToast('Erreur lors de la suppression.', true);
+    }
+  }
+
+  const formOverlay = document.getElementById('formOverlay');
+  const productForm = document.getElementById('productForm');
+
+  document.getElementById('addBtn').addEventListener('click', () => openForm(null));
+  document.getElementById('cancelBtn').addEventListener('click', closeForm);
+  formOverlay.addEventListener('click', (e) => { if (e.target === formOverlay) closeForm(); });
+
+  function openForm(id){
+    editingId = id;
+    productForm.reset();
+    document.getElementById('priceFixed').checked = true;
+    document.getElementById('stock').value = 'En stock';
+    existingPhotosState = [];
+
+    if (id) {
+      const p = products.find(x => x.id === id);
+      document.getElementById('formTitle').textContent = 'Modifier le produit';
+      document.getElementById('productId').value = p.id;
+      document.getElementById('name').value = p.name;
+      document.getElementById('cat').value = p.cat;
+      document.getElementById('price').value = p.price;
+      document.getElementById('priceFixed').checked = !!p.priceFixed;
+      document.getElementById('stock').value = p.stock || 'En stock';
+      document.getElementById('low').checked = !!p.low;
+      document.getElementById('specs').value = (p.specs || []).join('\n');
+      existingPhotosState = [...(p.photos || [])];
+    } else {
+      document.getElementById('formTitle').textContent = 'Ajouter un produit';
+      document.getElementById('productId').value = '';
+    }
+    renderExistingPhotos();
+    formOverlay.classList.add('open');
+  }
+
+  function closeForm(){
+    formOverlay.classList.remove('open');
+  }
+
+  function renderExistingPhotos(){
+    const wrap = document.getElementById('existingPhotos');
+    if (!existingPhotosState.length) {
+      wrap.innerHTML = '<span class="hint" style="margin:0;">Aucune photo pour l\'instant.</span>';
+      return;
+    }
+    wrap.innerHTML = existingPhotosState.map(src => `
+      <div class="photo-item">
+        <img src="${src}" alt="">
+        <button type="button" data-remove-photo="${src}">✕</button>
+      </div>
+    `).join('');
+    wrap.querySelectorAll('[data-remove-photo]').forEach(btn => {
+      btn.addEventListener('click', () => removeExistingPhoto(btn.dataset.removePhoto));
+    });
+  }
+
+  async function removeExistingPhoto(photoPath){
+    if (!editingId) {
+      // Not saved yet — just drop it locally (shouldn't happen since uploads happen on save)
+      existingPhotosState = existingPhotosState.filter(p => p !== photoPath);
+      renderExistingPhotos();
+      return;
+    }
+    if (!confirm('Supprimer cette photo ?')) return;
+    try {
+      const res = await fetch(`${API}/admin/products/${editingId}/photos`, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json', ...authHeaders() },
+        body: JSON.stringify({ photo: photoPath })
+      });
+      if (!res.ok) throw new Error();
+      const updated = await res.json();
+      existingPhotosState = updated.photos || [];
+      renderExistingPhotos();
+      const idx = products.findIndex(p => p.id === editingId);
+      if (idx !== -1) products[idx] = updated;
+    } catch (e) {
+      showToast('Erreur lors de la suppression de la photo.', true);
+    }
+  }
+
+  productForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const saveBtn = document.getElementById('saveBtn');
+    saveBtn.disabled = true;
+    saveBtn.textContent = 'Enregistrement…';
+
+    const catSelect = document.getElementById('cat');
+    const catLabels = { laptop: 'Portable', desktop: 'Bureau', accessoire: 'Accessoire' };
+
+    const formData = new FormData();
+    formData.append('name', document.getElementById('name').value);
+    formData.append('cat', catSelect.value);
+    formData.append('catLabel', catLabels[catSelect.value] || 'Portable');
+    formData.append('price', document.getElementById('price').value);
+    formData.append('priceFixed', document.getElementById('priceFixed').checked);
+    formData.append('stock', document.getElementById('stock').value);
+    formData.append('low', document.getElementById('low').checked);
+    formData.append('specs', document.getElementById('specs').value);
+
+    const fileInput = document.getElementById('photos');
+    for (const file of fileInput.files) {
+      formData.append('photos', file);
+    }
+
+    try {
+      const url = editingId ? `${API}/admin/products/${editingId}` : `${API}/admin/products`;
+      const method = editingId ? 'PUT' : 'POST';
+      const res = await fetch(url, { method, headers: authHeaders(), body: formData });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Erreur');
+      showToast(editingId ? 'Produit mis à jour.' : 'Produit ajouté.');
+      closeForm();
+      loadProducts();
+    } catch (err) {
+      showToast(err.message || 'Erreur lors de l\'enregistrement.', true);
+    } finally {
+      saveBtn.disabled = false;
+      saveBtn.textContent = 'Enregistrer';
+    }
+  });
+
+  checkAuth();
+</script>
+
+</body>
+</html>
